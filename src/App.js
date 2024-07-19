@@ -12,7 +12,7 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<ItemMap/>} />
+          <Route path="/" element={<ItemRegister/>} />
           <Route path="/item/register" element={<ItemRegister/>}/>
         </Routes>
       </Router>
