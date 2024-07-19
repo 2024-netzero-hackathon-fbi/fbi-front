@@ -1,23 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
+import Map from './component/ItemMap';
+import ItemInputBox from './component/ItemInputBox';
+import ItemRegister from './pages/ItemRegister';
+import ItemMap from './component/ItemMap';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<ItemMap/>} />
+          <Route path="/item/register" element={<ItemRegister/>}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
