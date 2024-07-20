@@ -127,9 +127,9 @@ const Progress = styled.div`
   font-size: 15px;
   border-radius:30px;
   background: ${(props) =>
-    props.status === "모집중"
+    props.status === ("ing" || "모집중")
       ? "#FCEC73"
-      : props.status === "나눔완료"
+      : props.status === ("end" || "나눔 완료")
       ? "#F0EBE8"
       : "#73CD3A"};
   margin-top: 5px;
@@ -176,7 +176,7 @@ const ItemProgressList = () => {
                                 <Content>
                                     <div>
                                     <PhotoImage src={item.image_url}></PhotoImage>
-                                    <Progress status={item.item_status}>{item.item_status === "모집중" ? "모집중": (item.item_status === "진행중" ? "진행중" : "나눔 완료")}</Progress>
+                                    <Progress status={item.item_status}>{item.item_status === ("ing" || "모집중") ? "모집중": (item.item_status === ("start" || "진행중") ? "진행중" : "나눔 완료")}</Progress>
                                     </div>
                                     <Name>{item.name}</Name>
                                     <Count><div>{item.user_count} / {item.total_user_count}</div></Count>

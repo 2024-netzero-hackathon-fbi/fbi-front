@@ -97,10 +97,44 @@ const Box = styled.div`
   align-items: center;
   gap:12px;
 `
+
+const FetchButton = styled.button`
+  width: 350px;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+  background: #D1E9FF;
+  font-weight: 600;
+  font-size: 24px;
+  text-decoration: none;
+`
 const ItemProgressList = () => {
     const [fetchData, setFetchData] = useState(null);
     //http://43.201.115.178:5000/user_info?user_id=1
     let { itemId } = useParams();
+
+    const fetchItemRegister = async () => {
+        try {
+            const response = await axios.post('http://43.201.115.178:5000/join_item',{
+                user_id: 2,
+                item_id: itemId
+            })
+
+            console.log(response.data);
+
+            if(response.status == 200) {
+                navigator("/progress")
+            }       
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     const fetchItems = async () => {
         try {
@@ -113,7 +147,7 @@ const ItemProgressList = () => {
             console.error(err);
         }
     }
-
+//http://43.201.115.178:5000/join_item
     useEffect(() => {
         fetchItems();
     }, [])
@@ -134,7 +168,10 @@ const ItemProgressList = () => {
                     <Info>인당 가격: {parseInt(fetchData?.price / fetchData?.total_user_count)}</Info>
                     <Info>1인당 개수: {parseInt(fetchData?.total_count / fetchData?.total_user_count)}</Info>
                 </Box>}
-
+                <Box>
+                    <FetchButton><a href={fetchData?.item_link} target="_blank">상품링크</a></FetchButton>
+                    <FetchButton onClick={fetchItemRegister}>참여하기</FetchButton>
+                </Box>
             </c.ScreenComponent>
             <NavigationBar />
         </c.Totalframe>
