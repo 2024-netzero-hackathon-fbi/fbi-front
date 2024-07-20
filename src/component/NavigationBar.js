@@ -40,20 +40,21 @@ const IconText = styled.div`
 `;
 
 const NavigationBar = (props) => {
+    const navigator = useNavigate();
 
     return (
         <TotalNavigationBar>
-            <Icons>
+            <Icons onClick={() => navigator('/')}>
                 <Icon src={FillHome} />
                 <IconText>홈</IconText>
             </Icons>
-            <Icons>
+            <Icons onClick={() => navigator('/item/register')}>
                 <Icon src={FillCart} />
-                <IconText>상품 모집</IconText>
+                <IconText>상품 등록</IconText>
             </Icons>
-            <Icons>
+            <Icons onClick={() => navigator('/progress')}>
                 <Icon src={FillMyPage} />
-                <IconText>이용 현황</IconText>
+                <IconText>참여 현황</IconText>
             </Icons>
         </TotalNavigationBar>
     );
