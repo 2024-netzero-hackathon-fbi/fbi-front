@@ -72,25 +72,42 @@ const Icon = styled.img`
   margin: 10px 10px 15px 0px;
 `;
 
+const PhotoImage = styled.img`
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  border-radius:12px;
+`
+
+const Info = styled.div`
+  weight:220px;
+  height: 55px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px; /* 133.333% */
+  letter-spacing: -0.48px;
+`
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap:12px;
+`
 const ItemProgressList = () => {
-    const [info, setInfo] = useState(["상품 이름", "상품 가격", "모집 인원", "총 상품 개수", "상품 링크"]);
-    const data = [
-        { "total_count": 11, "user_id": 1, "iteam_id": 3, "item_link": "asd", "timestamp": 1721425084.0, "user_count": 1.0, "price": 11111.0, "image_url": "https://netzero-12-s3.s3.ap-northeast-2.amazonaws.com/chicken.png", "name": "chicken", "item_status": "ing" },
-        { "total_count": 11, "user_id": 1, "iteam_id": 3, "item_link": "asd", "timestamp": 1721425084.0, "user_count": 1.0, "price": 11111.0, "image_url": "https://netzero-12-s3.s3.ap-northeast-2.amazonaws.com/chicken.png", "name": "chicken", "item_status": "start" },
-        { "total_count": 11, "user_id": 1, "iteam_id": 3, "item_link": "asd", "timestamp": 1721425084.0, "user_count": 1.0, "price": 11111.0, "image_url": "https://netzero-12-s3.s3.ap-northeast-2.amazonaws.com/chicken.png", "name": "chicken", "item_status": "start" },
-        { "total_count": 11, "user_id": 1, "iteam_id": 3, "item_link": "asd", "timestamp": 1721425084.0, "user_count": 1.0, "price": 11111.0, "image_url": "https://netzero-12-s3.s3.ap-northeast-2.amazonaws.com/chicken.png", "name": "chicken", "item_status": "end" },
-        { "total_count": 11, "user_id": 1, "iteam_id": 3, "item_link": "asd", "timestamp": 1721425084.0, "user_count": 1.0, "price": 11111.0, "image_url": "https://netzero-12-s3.s3.ap-northeast-2.amazonaws.com/chicken.png", "name": "chicken", "item_status": "ing" }
-    ]
-    const [fetchData, setFetchData] = useState([]);
+    const [fetchData, setFetchData] = useState(null);
     //http://43.201.115.178:5000/user_info?user_id=1
-    let { userId } = useParams();
+    let { itemId } = useParams();
 
     const fetchItems = async () => {
         try {
-            const response = await axios.get(`http://43.201.115.178:5000/get_item?item_id=${userId}`
+            const response = await axios.get(`http://43.201.115.178:5000/get_item?item_id=${itemId}`
             )
 
-            setFetchData(response.data.items);
+            setFetchData(response.data);
             console.log(response.data);
         } catch (err) {
             console.error(err);
@@ -110,7 +127,14 @@ const ItemProgressList = () => {
                     <Title>상품 정보</Title>
                 </Header>
                 {/* <img src="https://netzero-12-s3.s3.ap-northeast-2.amazonaws.com/gg.png"></img> */}
-                <img src={fetchData.image_url}></img>
+                {fetchData != null && <Box>
+                    <PhotoImage src={fetchData?.image_url} />
+                    <Info>상품 이름: {fetchData?.name}</Info>
+                    <Info>상품 가격: {fetchData?.price}</Info>
+                    <Info>인당 가격: {parseInt(fetchData?.price / fetchData?.total_user_count)}</Info>
+                    <Info>1인당 개수: {parseInt(fetchData?.total_count / fetchData?.total_user_count)}</Info>
+                </Box>}
+
             </c.ScreenComponent>
             <NavigationBar />
         </c.Totalframe>

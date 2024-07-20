@@ -165,7 +165,7 @@ const TotalItemList = () => {
                 <Total>
                     {fetchData.length > 0 ? fetchData.map((item, index) => (
                         <TotalBox key={index}>
-                            <ListBox>
+                            <ListBox onClick={() => navigator(`/item/${item.item_id}`)}>
                                 <Content>
                                     <div>
                                     <PhotoImage src={item.image_url}></PhotoImage>
