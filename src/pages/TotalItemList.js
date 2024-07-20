@@ -165,7 +165,7 @@ const TotalItemList = () => {
                 <Total>
                     {fetchData.length > 0 ? fetchData.map((item, index) => (
                         <TotalBox key={index}>
-                            <ListBox onClick={() => setIsOpen(true)}>
+                            <ListBox>
                                 <Content>
                                     <div>
                                     <PhotoImage src={item.image_url}></PhotoImage>

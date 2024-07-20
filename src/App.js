@@ -8,6 +8,7 @@ import ItemRegister from './pages/ItemRegister';
 import ItemMap from './component/ItemMap';
 import ItemProgressList from './pages/ItemProgressList'
 import TotalItemList from './pages/TotalItemList'
+import ItemInfo from './pages/ItemInfo'
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path="/" element={<TotalItemList/>} />
           <Route path="/progress" element={<ItemProgressList/>} />
           <Route path="/item/register" element={<ItemRegister/>}/>
-          
+          <Route path="/item/:itemId" element={<ItemInfo/>}/>
         </Routes>
       </Router>
     </div>
